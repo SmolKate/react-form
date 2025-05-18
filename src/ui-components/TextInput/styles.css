@@ -8,6 +8,7 @@
         min-width: 150px;
         background-color: gray;
         border-color: white;
+        padding-left: 5px;
     }
 
     input[type="radio"] {
@@ -46,6 +47,18 @@
         color: red;
         margin-left: 5px;
     }
+
+    .input-wrapper {
+        position: relative;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 5px;
+            height: calc(100% - 10px);
+        }
+    }
 }
 
 .text-input.variant-brand {
@@ -81,6 +94,10 @@
     }
 }
 
+.text-input.input-size-s:has(img) input {
+    padding-left: 30px;
+}
+
 .text-input.input-size-m {
     input {
         height: 30px;
@@ -89,6 +106,10 @@
     input[type="radio"] {
         height: auto;
     }
+}
+
+.text-input.input-size-m:has(img) input {
+    padding-left: 40px;
 }
 
 .text-input.input-size-l {
@@ -101,6 +122,10 @@
     }
 }
 
+.text-input.input-size-l:has(img) input {
+    padding-left: 45px;
+}
+
 .text-input.input-size-xl {
     input {
         height: 40px;
@@ -109,6 +134,10 @@
     input[type="radio"] {
         height: 20px;
     }
+}
+
+.text-input.input-size-xl:has(img) input {
+    padding-left: 50px;
 }
 
 .text-input:has(.error) input {

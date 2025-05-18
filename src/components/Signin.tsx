@@ -1,4 +1,5 @@
 import { TextInput } from "../ui-components/TextInput"
+import textIcon from '../assets/icon-mail.png'
 
 const Signin = () => {
     console.log('signin')
@@ -10,8 +11,10 @@ const Signin = () => {
                 name='email'
                 type='email'
                 label='Email'
+                inputSize='s'
                 variant='brand'
                 withAsterisk
+                icon={textIcon}
             />
             <TextInput
                 name='password'

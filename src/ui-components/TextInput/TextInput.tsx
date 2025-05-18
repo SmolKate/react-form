@@ -17,6 +17,7 @@ interface TextInput extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputEleme
     variant?: InputVariant
     radius?: InputRadius
     inputSize?: InputSize
+    icon?: string
     withAsterisk?: boolean
     radioOptions?: RadioOptions[]
     checkedItem?: string
@@ -35,6 +36,7 @@ const TextInput = (props: TextInput) => {
         type,
         radioOptions,
         withAsterisk,
+        icon,
         ...restProps
     } = props
 
@@ -55,7 +57,11 @@ const TextInput = (props: TextInput) => {
                         </div>
                 )})
             ) : (
+            <div className="input-wrapper">
+                {icon && <img src={icon} />}
                 <input id={inputId} type={type} {...restProps} />
+            </div>
+                
             )}
             {error && <p className="error">{error}</p>}
         </div>
