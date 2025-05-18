@@ -6,40 +6,59 @@ interface RadioOptions {
     isChecked?: boolean
 }
 
+type InputVariant = 'defualt' | 'brand'
+type InputRadius = 's' | 'm' | 'l'
+type InputSize = 's' | 'm' | 'l' | 'xl'
+
 interface TextInput extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>{
     label?: string
+    description?: string
+    error?: string
+    variant?: InputVariant
+    radius?: InputRadius
+    inputSize?: InputSize
+    withAsterisk?: boolean
     radioOptions?: RadioOptions[]
     checkedItem?: string
 }
 
 const TextInput = (props: TextInput) => {
-    console.log('text-input')
     const inputId = useId()
 
-    const { label, type, radioOptions, ...restProps } = props
-    console.log('text-input', inputId)
+    const {
+        label,
+        description,
+        error,
+        variant = 'defualt',
+        radius = 'm',
+        inputSize = 'm',
+        type,
+        radioOptions,
+        withAsterisk,
+        ...restProps
+    } = props
 
     return (
-        <>
-        {type === 'radio' ? (
+        <div className={`text-input variant-${variant} input-radius-${radius} input-size-${inputSize}`}>
             <div>
-                {label && <p>{label}</p>}
-                {radioOptions?.map(({isChecked = false, name, value}) => {
+                {type === 'radio' && label ? <p>{label}</p> : <label htmlFor={inputId}>{label}</label>}
+                {withAsterisk && <p className="asterisk">*</p>}
+            </div>
+            {description && <p className="description">{description}</p>}
+            {type === 'radio' ? (
+                radioOptions?.map(({isChecked = false, name, value}) => {
                     const inputValue = value ?? name
                     return (
                         <div>
                             <input type="radio" id={name} name={name} value={inputValue} checked={isChecked} />
                             <label htmlFor={name}>{name}</label>
                         </div>
-                )})}
-          </div>
-        ) : (
-            <div className="text-input">
-                {label && <label htmlFor={inputId}>{label}</label>}
+                )})
+            ) : (
                 <input id={inputId} type={type} {...restProps} />
-            </div>
-        )}
-        </>
+            )}
+            {error && <p className="error">{error}</p>}
+        </div>
     )
 }
 

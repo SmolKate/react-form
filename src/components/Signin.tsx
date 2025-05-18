@@ -10,11 +10,14 @@ const Signin = () => {
                 name='email'
                 type='email'
                 label='Email'
+                variant='brand'
+                withAsterisk
             />
             <TextInput
                 name='password'
                 type='password'
                 label='Пароль'
+                error='ошибка'
             />
         </>
     )
