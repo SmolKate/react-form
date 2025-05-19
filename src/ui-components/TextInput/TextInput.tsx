@@ -3,7 +3,6 @@ import './styles.css'
 interface RadioOptions {
     name: string
     value?: string | number
-    isChecked?: boolean
 }
 
 type InputVariant = 'defualt' | 'brand'
@@ -37,6 +36,7 @@ const TextInput = (props: TextInput) => {
         radioOptions,
         withAsterisk,
         icon,
+        value: inputValue,
         ...restProps
     } = props
 
@@ -48,18 +48,18 @@ const TextInput = (props: TextInput) => {
             </div>
             {description && <p className="description">{description}</p>}
             {type === 'radio' ? (
-                radioOptions?.map(({isChecked = false, name, value}) => {
-                    const inputValue = value ?? name
+                radioOptions?.map(({ name, value }) => {
+                    const radioInputValue = value ?? name
                     return (
-                        <div>
-                            <input type="radio" id={name} name={name} value={inputValue} checked={isChecked} />
+                        <div key={radioInputValue}>
+                            <input type="radio" id={name} name={name} value={radioInputValue} checked={name === inputValue} {...restProps}/>
                             <label htmlFor={name}>{name}</label>
                         </div>
                 )})
             ) : (
             <div className="input-wrapper">
                 {icon && <img src={icon} />}
-                <input id={inputId} type={type} {...restProps} />
+                <input id={inputId} type={type} value={inputValue} {...restProps} />
             </div>
                 
             )}
