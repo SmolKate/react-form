@@ -1,7 +1,7 @@
-import { TextInput } from "../ui-components/TextInput"
-import textIcon from '../assets/icon-mail.png'
-import { type FormEvent } from "react"
-import { useHandleChange } from "../hooks/useHandleChange"
+import { type FormEvent } from 'react'
+import { TextInput } from '../../ui-components/TextInput'
+import { useHandleChange } from '../../hooks/useHandleChange'
+import { isEmail, isLessThanLength, isMoreThanLength } from '../helpers/validators'
 
 export interface SiginValues {
     email: string,
@@ -13,10 +13,15 @@ interface Signin {
 }
 
 const Signin = ({ onSubmit }: Signin) => {
-    const [values, handleChange] = useHandleChange({
+    const validators = {
+        email: [isEmail()],
+        password: [isMoreThanLength(5), isLessThanLength(10)]
+    }
+
+    const {values, errors, handleChange} = useHandleChange({
         email: '',
         password: '',
-    })
+    }, validators)
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -33,17 +38,17 @@ const Signin = ({ onSubmit }: Signin) => {
                 inputSize='s'
                 variant='brand'
                 withAsterisk
-                icon={textIcon}
                 onChange={handleChange}
                 value={values.email}
+                error={errors?.email}
             />
             <TextInput
                 name='password'
                 type='password'
                 label='Пароль'
-                error='ошибка'
                 onChange={handleChange}
                 value={values.password}
+                error={errors?.password}
             />
             <button type="submit">Войти</button>
         </form>

@@ -1,4 +1,4 @@
-import { useId, type DetailedHTMLProps, type InputHTMLAttributes } from "react"
+import { useId, type DetailedHTMLProps, type InputHTMLAttributes } from 'react'
 import './styles.css'
 interface RadioOptions {
     name: string
@@ -40,6 +40,15 @@ const TextInput = (props: TextInput) => {
         ...restProps
     } = props
 
+    const radioInputs = radioOptions?.map(({ name, value }) => {
+        const radioInputValue = value ?? name
+        return (
+            <div key={radioInputValue}>
+                <input type="radio" id={name} name={name} value={radioInputValue} checked={name === inputValue} {...restProps}/>
+                <label htmlFor={name}>{name}</label>
+            </div>
+    )})
+
     return (
         <div className={`text-input variant-${variant} input-radius-${radius} input-size-${inputSize}`}>
             <div>
@@ -48,14 +57,7 @@ const TextInput = (props: TextInput) => {
             </div>
             {description && <p className="description">{description}</p>}
             {type === 'radio' ? (
-                radioOptions?.map(({ name, value }) => {
-                    const radioInputValue = value ?? name
-                    return (
-                        <div key={radioInputValue}>
-                            <input type="radio" id={name} name={name} value={radioInputValue} checked={name === inputValue} {...restProps}/>
-                            <label htmlFor={name}>{name}</label>
-                        </div>
-                )})
+                radioInputs
             ) : (
             <div className="input-wrapper">
                 {icon && <img src={icon} />}

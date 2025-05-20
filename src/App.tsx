@@ -1,5 +1,5 @@
-import Signin, { type SiginValues } from './components/Signin'
-import Singup, { type SignupValues } from './components/Singup'
+import Signin, { type SiginValues } from './auth/components/Signin'
+import Singup, { type SignupValues } from './auth/components/Singup'
 import './App.css'
 
 function App() {
